@@ -1,6 +1,7 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -12,6 +13,15 @@ export default function Page() {
   const [hoc, setHoc] = useState<number | null>(null)
   const [is, setIs] = useState<string>("")
   const [design, setDesign] = useState<string>("")
+
+  // Reset all state on mount to ensure fresh start (no cached data)
+  useEffect(() => {
+    setBm("")
+    setBs("")
+    setHoc(null)
+    setIs("")
+    setDesign("")
+  }, [])
 
   const calculateHOC = () => {
     const bmValue = parseFloat(bm)
@@ -52,14 +62,15 @@ export default function Page() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="bm">Benchmark (BM)</Label>
+              <Label htmlFor="bm">Benchmark Value</Label>
               <Input
                 id="bm"
                 type="number"
                 step="0.001"
-                placeholder="Enter BM"
+                placeholder="Enter BM-Value"
                 value={bm}
                 onChange={(e) => setBm(e.target.value)}
+                autoComplete="off"
                 className="h-12 text-base md:h-9 md:text-sm"
               />
             </div>
@@ -72,6 +83,7 @@ export default function Page() {
                 placeholder="Enter BS"
                 value={bs}
                 onChange={(e) => setBs(e.target.value)}
+                autoComplete="off"
                 className="h-12 text-base md:h-9 md:text-sm"
               />
             </div>
@@ -104,11 +116,12 @@ export default function Page() {
                     placeholder="Enter IS"
                     value={is}
                     onChange={(e) => setIs(e.target.value)}
+                    autoComplete="off"
                     className="h-12 text-base md:h-9 md:text-sm"
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="point-design">Design RL (Optional)</Label>
+                  <Label htmlFor="point-design">Design RL </Label>
                   <Input
                     id="point-design"
                     type="number"
@@ -116,6 +129,7 @@ export default function Page() {
                     placeholder="Enter Design RL"
                     value={design}
                     onChange={(e) => setDesign(e.target.value)}
+                    autoComplete="off"
                     className="h-12 text-base md:h-9 md:text-sm"
                   />
                 </div>

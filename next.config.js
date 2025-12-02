@@ -58,5 +58,11 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 
 module.exports = withPWA({
   reactStrictMode: true,
+  // Explicitly use webpack (required for PWA plugin)
+  webpack: (config, { isServer }) => {
+    return config;
+  },
+  // Add empty turbopack config to silence the warning
+  turbopack: {},
 });
 

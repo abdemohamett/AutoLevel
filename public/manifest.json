@@ -1,7 +1,9 @@
 {
   "name": "AutoLevel",
   "short_name": "AutoLevel",
+  "description": "Automated level-book calculations for surveyors",
   "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#1a1a1a",

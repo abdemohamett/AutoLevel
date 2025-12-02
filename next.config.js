@@ -7,24 +7,49 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   buildExcludes: [/.*\.js\.map/],
   workboxOptions: {
     disableDevLogs: true,
+    // Precache all static assets
+    globPatterns: ["**/*.{js,css,html,png,svg,ico,woff,woff2,ttf,eot}"],
+    // Cache strategy for offline support
     runtimeCaching: [
       {
-        urlPattern: /^https?.*\.(js|css|png|svg|ico|woff|woff2|ttf|eot)$/,
+        // Cache static assets (JS, CSS, images, fonts)
+        urlPattern: /^https?.*\.(js|css|png|svg|ico|woff|woff2|ttf|eot|jpg|jpeg|gif|webp)$/,
         handler: "CacheFirst",
         options: {
           cacheName: "static-resources",
           expiration: {
-            maxEntries: 50,
-            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+            maxEntries: 100,
+            maxAgeSeconds: 30 * 24 * 60 * 60, // 30 days
           },
         },
       },
       {
+        // Cache API calls (if any) - NetworkFirst with fallback
+        urlPattern: /^https?:\/\/.*\/api\/.*/,
+        handler: "NetworkFirst",
+        options: {
+          cacheName: "api-cache",
+          networkTimeoutSeconds: 3,
+          expiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 24 * 60 * 60, // 1 day
+          },
+        },
+      },
+      {
+        // Cache pages - NetworkFirst but fallback to cache for offline
         urlPattern: /^https?.*/,
         handler: "NetworkFirst",
         options: {
-          cacheName: "pages",
+          cacheName: "pages-cache",
           networkTimeoutSeconds: 3,
+          expiration: {
+            maxEntries: 50,
+            maxAgeSeconds: 7 * 24 * 60 * 60, // 7 days
+          },
+          cacheableResponse: {
+            statuses: [0, 200],
+          },
         },
       },
     ],
@@ -33,8 +58,5 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 
 module.exports = withPWA({
   reactStrictMode: true,
-  // Add empty turbopack config to silence the warning
-  // PWA plugin uses webpack, but we can still use Turbopack for dev
-  turbopack: {},
 });
 

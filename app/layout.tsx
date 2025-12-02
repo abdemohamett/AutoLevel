@@ -17,9 +17,15 @@ export const metadata: Metadata = {
   description: "Automated level-book calculations for surveyors",
   manifest: "/manifest.json",
   themeColor: "#1a1a1a",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+    maximumScale: 1,
+    userScalable: false,
+  },
   appleWebApp: {
     capable: true,
-    statusBarStyle: "default",
+    statusBarStyle: "black-translucent",
     title: "AutoLevel",
   },
   icons: {

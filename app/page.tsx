@@ -2,6 +2,7 @@
 "use client"
 
 import { useState, useEffect } from "react"
+import { Heart } from "lucide-react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Button } from "@/components/ui/button"
@@ -149,6 +150,18 @@ export default function Page() {
             </CardContent>
           </Card>
         )}
+
+        {/* Footer */}
+        <footer className="mt-12 mb-6 text-center">
+          <p className="text-sm text-muted-foreground flex flex-wrap items-center justify-center gap-1.5 md:gap-2">
+            <span>Made with</span>
+            <span className="font-medium text-foreground">passion</span>
+            <span>and</span>
+            <Heart className="inline-block size-4 fill-red-500 text-red-500 animate-pulse" aria-label="love" />
+            <span>by</span>
+            <span className="font-semibold text-foreground italic tracking-wide">abdirahman</span>
+          </p>
+        </footer>
       </div>
     </div>
   )

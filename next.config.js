@@ -7,8 +7,6 @@ const withPWA = require("@ducanh2912/next-pwa").default({
   buildExcludes: [/.*\.js\.map/],
   workboxOptions: {
     disableDevLogs: true,
-    // Precache all static assets
-    globPatterns: ["**/*.{js,css,html,png,svg,ico,woff,woff2,ttf,eot}"],
     // Cache strategy for offline support
     runtimeCaching: [
       {
